@@ -9,6 +9,9 @@
 <body>
   <form action="/reviews/" method="post">
     {% csrf_token %}
+    {% if has_error %}
+    <p>User name is required</p>
+    {% endif %}
     <label for="username">User name</label>
     <input id="username" name="username" />
     <button type='submit'>Send</button>
