@@ -6,17 +6,17 @@ from .forms import ReviewForm
 
 def reviews(request):
   if request.method == 'POST':
-    print(request.POST['username'])
-    username = request.POST['username']
-    if username == "" or len(username) > 100:
-      return render(request,'reviews/review.html', {
-        'has_error': True
-      })
-    print(username)
-    return HttpResponseRedirect('/reviews/thank_you')
-  form = ReviewForm()
+    print(request.POST)
+    form = ReviewForm(request.POST)
+
+    if form.is_valid():
+      print(form.cleaned_data)
+      return HttpResponseRedirect('/reviews/thank_you')
+  else:
+    form = ReviewForm()
+
   return render(request, 'reviews/review.html', {
-    'has_error': False
+   'form': form
   })
 
 def thank_you(request):
