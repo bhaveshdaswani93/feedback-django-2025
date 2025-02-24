@@ -28,7 +28,16 @@ class ReviewForm(forms.ModelForm):
     }
     error_messages = {
       'user_name': {
-        'required': 'User name is required'
+        'required': 'User name is required',
+        'max_length': 'Please enter a shorter name'
+      },
+      'review': {
+        'required': 'Please enter a review'
+      },
+      'rating': {
+        'required': 'Please enter a rating',
+        'min_value': 'Please enter a rating of 1 or higher',
+        'max_value': 'Please enter a rating of 5 or lower'
       }
     }
     
