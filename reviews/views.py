@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views import View
+from django.views.generic import TemplateView
 from .forms import ReviewForm
 from .models import Review
 
@@ -50,5 +51,15 @@ class ReviewView(View):
 #    'form': form
 #   })
 
-def thank_you(request):
-  return render(request, 'reviews/thank_you.html')
+class ThankYouView(TemplateView):
+  template_name = "reviews/thank_you.html"
+  
+  def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Add data to the context here if needed
+        return context
+  
+  """
+  def get(self, request):
+    return render(request, 'reviews/thank_you.html')
+  """
