@@ -7,12 +7,11 @@ from .models import Review
 
 # Create your views here.
 
-class ReviewFavourite(View):
-  def post(request):
+class ReviewFavorite(View):
+  def post(self, request):
     review_id = request.POST['review_id']
-    review = Review.objects.get(pk=review_id)
-    request.session['favourite_review'] = review
-    return HttpResponseRedirect('/reviews/'+review.id)
+    request.session['favorite_review'] = review_id
+    return HttpResponseRedirect('/reviews/list/' + review_id)
     
   
 class ReviewView(CreateView):
@@ -97,7 +96,12 @@ class ReviewListView(ListView):
 class ReviewDetailView(DetailView):
   model = Review
   template_name = "reviews/review_detail.html"
-  
+
+  def get_context_data(self, **kwargs):
+    context =  super().get_context_data(**kwargs)
+    review = self.object
+    favorite_review = self.request.session['favorite_review']
+    context['is_favorite'] = favorite_review == str(review.pk)
   """
   def get_context_data(self, **kwargs):
     context = super().get_context_data(**kwargs)
