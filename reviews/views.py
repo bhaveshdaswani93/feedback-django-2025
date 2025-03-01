@@ -7,7 +7,14 @@ from .models import Review
 
 # Create your views here.
 
-
+class ReviewFavourite(View):
+  def post(request):
+    review_id = request.POST['review_id']
+    review = Review.objects.get(pk=review_id)
+    request.session['favourite_review'] = review
+    return HttpResponseRedirect('/reviews/'+review.id)
+    
+  
 class ReviewView(CreateView):
   model = Review
   template_name = "reviews/review.html"

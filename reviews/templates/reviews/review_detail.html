@@ -8,4 +8,9 @@ Review By: {{ review.user_nam}}
   <h1>{{ review.user_name }} ({{ review.rating }})</h1>
   <p>{{ review.review }}</p>
   <p>Reviewed on: {{ object.date }}</p>
+  <form action="/reviews/favourite" method="POST">
+    {% csrf_field %}
+    <input type="hidden" name="reviee_id" value="{{review.id}}"
+  <button>Favourite</button>
+  </form>
 {% endblock %}
