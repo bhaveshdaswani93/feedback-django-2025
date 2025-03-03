@@ -102,6 +102,7 @@ class ReviewDetailView(DetailView):
     review = self.object
     favorite_review = self.request.session.get('favorite_review')
     context['is_favorite'] = favorite_review == str(review.pk)
+    return context
   """
   def get_context_data(self, **kwargs):
     context = super().get_context_data(**kwargs)
